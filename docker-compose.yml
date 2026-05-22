@@ -1,0 +1,10 @@
+---
+
+services:
+  big-brother:
+    build: .
+    container_name: Big-Brother
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
