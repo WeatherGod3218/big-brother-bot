@@ -1,5 +1,4 @@
 import discord
-import asyncio
 import random
 
 from modules import taskmanager
@@ -9,7 +8,7 @@ from discord.ext import commands
 from pathlib import Path
 
 logger: Logger = getLogger(__name__)
-# Required for reading message content
+
 intents = discord.Intents.default()
 intents.message_content = True
 
