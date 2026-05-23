@@ -1,5 +1,4 @@
 import discord
-import asyncio
 import random
 
 from modules import taskmanager
@@ -9,7 +8,7 @@ from discord.ext import commands
 from pathlib import Path
 
 logger: Logger = getLogger(__name__)
-# Required for reading message content
+
 intents = discord.Intents.default()
 intents.message_content = True
 
@@ -18,7 +17,7 @@ bot: commands.Bot = commands.Bot(
     intents=intents
 )
 
-image_amount: int = 0 # The amount of images of the man
+the_man_images: list[Path] = [] # The amount of images of the man
 
 @bot.event
 async def on_ready() -> None:
@@ -45,14 +44,14 @@ async def on_message(message: discord.Message) -> None:
     Arguments:
         message (discord.Message): The messages context
     """
-    global image_amount
+    global the_man_images
 
-    if message.author.bot:
+    if message.author.bot or len(the_man_images) == 0:
         return
 
     if bot.user in message.mentions:
         await message.channel.send(
-            file=discord.File(f"images/man_images/theman{random.randint(1,image_amount)}.png")
+            file=discord.File(str(random.choice(the_man_images)))
         )
 
     await bot.process_commands(message)
@@ -61,11 +60,14 @@ async def init_discord_bot() -> None:
     """
     Initalizes the discord bot, using the discord bot token found in the .env file
     """
-    global image_amount
+    global the_man_images
+    logger.info("Loading Image Files!")
 
+
+    the_man_images = [f for f in Path("./images/man_images").rglob('*') if f.is_file()]
+    logger.info("Loaded Image Files Successfully!")
     logger.info("Initalizing Discord Bot!")
-
-    image_amount = len([f for f in Path("./images/man_images").rglob('*') if f.is_file()])
+    
     try:
         taskmanager.create_background_task(bot.start(DISCORD_BOT_TOKEN))
     except Exception as e:
