@@ -38,3 +38,4 @@ def _get_env_variable(name: str, default: str | None = None) -> str :
 BASE_DIR: str = os.path.dirname(os.path.abspath(__file__))
 
 DISCORD_BOT_TOKEN: str = _get_env_variable("DISCORD_BOT_TOKEN","")
+GUILD_ID: str = _get_env_variable("GUILD_ID","")
