@@ -15,6 +15,7 @@ class BigBrother(commands.Bot):
     async def setup_hook(self):
         await self.load_extension("cogs.nullscape")
         await self.load_extension("cogs.theman")
+        await self.load_extension("cogs.gameconstitution")
 
 
         await self.tree.sync()
