@@ -22,7 +22,6 @@ The Constitution of The "Video Games OST OAT" Playlist
 class VideoGameOSTs(commands.Cog):
     """
     Cog used for the video games OAT
-        - Sends image of Kolonas 14 when asked (Inside joke)
     """
     def __init__(self, bot):
         self.bot = bot
