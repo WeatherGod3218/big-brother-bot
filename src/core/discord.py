@@ -20,6 +20,10 @@ class BigBrother(commands.Bot):
 
         await self.tree.sync()
 
+        guild = discord.Object(id=GUILD_ID)
+        self.tree.copy_global_to(guild=guild)
+        await self.tree.sync(guild=guild)
+
     async def on_ready(self):
         logger.info(f"Logged in as {self.user}")
 
